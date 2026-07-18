@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Resurrecting the Dead Ministries — Prof. Gizmo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0f0d0a;
+    --deep: #1a1410;
+    --surface: #f9f6f1;
+    --card: #ffffff;
+    --muted: #6b6560;
+    --border: rgba(0,0,0,0.10);
+    --gold: #b8820a;
+    --gold-light: #fdf4dc;
+    --radius: 6px;
+    --serif: 'EB Garamond', Georgia, serif;
+    --sans: 'Inter', system-ui, sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--surface);
+    color: var(--black);
+    line-height: 1.6;
+    font-size: 16px;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--deep);
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 2.5rem;
+    height: 60px;
+  }
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 17px; color: #e8dcc8;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+  }
+  .nav-links {
+    display: flex; gap: 2rem; list-style: none;
+  }
+  .nav-links a {
+    font-size: 13px; color: rgba(255,255,255,0.55);
+    text-decoration: none; letter-spacing: 0.03em;
+    transition: color 0.15s;
+  }
+  .nav-links a:hover { color: #e8dcc8; }
+  .nav-cta {
+    font-size: 13px; font-weight: 500;
+    padding: 7px 18px;
+    background: var(--gold); color: #fff;
+    border: none; border-radius: var(--radius); cursor: pointer;
+    text-decoration: none;
+    transition: opacity 0.15s;
+  }
+  .nav-cta:hover { opacity: 0.88; }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--deep);
+    padding: 5rem 2.5rem 4.5rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 4rem;
+    align-items: center;
+    min-height: 480px;
+  }
+  .hero-eyebrow {
+    font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--gold); font-family: var(--sans); font-weight: 500;
+    margin-bottom: 1.25rem;
+  }
+  .hero-title {
+    font-family: var(--serif);
+    font-size: clamp(36px, 5vw, 52px);
+    line-height: 1.15; font-weight: 400;
+    color: #f0e8d8;
+    margin-bottom: 1.25rem;
+  }
+  .hero-title em { font-style: italic; color: #e8dcc8; }
+  .hero-sub {
+    font-size: 15px; line-height: 1.75;
+    color: rgba(255,255,255,0.55);
+    max-width: 480px;
+    margin-bottom: 2rem;
+  }
+  .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn-gold {
+    padding: 11px 24px; font-size: 14px; font-weight: 500;
+    background: var(--gold); color: #fff;
+    border: none; border-radius: var(--radius); cursor: pointer;
+    text-decoration: none; display: inline-block;
+    transition: opacity 0.15s;
+  }
+  .btn-gold:hover { opacity: 0.88; }
+  .btn-outline-light {
+    padding: 11px 24px; font-size: 14px; font-weight: 500;
+    background: transparent; color: rgba(255,255,255,0.75);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: var(--radius); cursor: pointer;
+    text-decoration: none; display: inline-block;
+    transition: border-color 0.15s, color 0.15s;
+  }
+  .btn-outline-light:hover { border-color: rgba(255,255,255,0.45); color: #fff; }
+
+  /* ── BOOK COVER ── */
+  .book-wrap {
+    flex-shrink: 0;
+  }
+  .book {
+    width: 180px; height: 260px;
+    border-radius: 2px 10px 10px 2px;
+    background: #0d051c;
+    border: 1px solid rgba(255,255,255,0.1);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 1.5rem 1rem;
+    text-align: center;
+    position: relative; overflow: hidden;
+    box-shadow: 6px 6px 24px rgba(0,0,0,0.5);
+  }
+  .book-spine-line {
+    position: absolute; left: 0; top: 0; bottom: 0; width: 10px;
+    background: #06020e;
+    border-right: 1px solid rgba(255,255,255,0.07);
+  }
+  .book-ornament {
+    width: 44px; height: 44px;
+    border: 1.5px solid rgba(184,130,10,0.7);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1rem;
+  }
+  .book-ornament-inner {
+    width: 16px; height: 16px;
+    background: rgba(184,130,10,0.6);
+    border-radius: 50%;
+  }
+  .book-title-text {
+    font-family: var(--serif); font-size: 11.5px; font-weight: 500;
+    color: rgba(255,255,255,0.88); line-height: 1.45;
+    margin-bottom: 0.4rem; text-transform: uppercase; letter-spacing: 0.07em;
+  }
+  .book-sub-text {
+    font-size: 9px; color: rgba(184,130,10,0.75);
+    text-transform: uppercase; letter-spacing: 0.09em;
+  }
+  .book-author-text {
+    position: absolute; bottom: 1rem;
+    font-size: 9px; color: rgba(255,255,255,0.38);
+    letter-spacing: 0.07em; text-transform: uppercase;
+  }
+
+  /* ── SECTION SHARED ── */
+  section { padding: 3.5rem 2.5rem; }
+  .section-eyebrow {
+    font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--gold); font-weight: 500; margin-bottom: 0.6rem;
+  }
+  .section-title {
+    font-family: var(--serif); font-size: 26px; font-weight: 400;
+    margin-bottom: 0.75rem; line-height: 1.3;
+  }
+  .section-lead {
+    font-size: 15px; color: var(--muted); line-height: 1.75;
+    max-width: 620px;
+  }
+  .section-header-row {
+    display: flex; align-items: baseline; justify-content: space-between;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--border); padding-bottom: 1rem;
+  }
+  .view-all { font-size: 13px; color: var(--gold); text-decoration: none; }
+  .view-all:hover { text-decoration: underline; }
+
+  /* ── ABOUT ── */
+  .about-section {
+    background: var(--card);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    display: grid; grid-template-columns: auto 1fr; gap: 2.5rem; align-items: start;
+  }
+  .about-avatar {
+    width: 90px; height: 90px; border-radius: 50%;
+    background: var(--gold-light);
+    border: 2px solid var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--serif); font-size: 26px; color: var(--gold);
+    flex-shrink: 0;
+  }
+  .about-title-name {
+    font-family: var(--serif); font-size: 22px; font-weight: 400;
+    margin-bottom: 0.15rem;
+  }
+  .about-title-role {
+    font-size: 12px; color: var(--gold); text-transform: uppercase;
+    letter-spacing: 0.1em; margin-bottom: 1rem;
+  }
+  .about-bio { font-size: 14px; line-height: 1.8; color: var(--muted); max-width: 640px; }
+
+  /* ── TEACHINGS CARDS ── */
+  .teachings-section { background: var(--surface); }
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+  }
+  .teaching-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.5rem;
+    transition: box-shadow 0.15s;
+  }
+  .teaching-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+  .card-tag {
+    display: inline-block; font-size: 10px; font-weight: 500;
+    letter-spacing: 0.09em; text-transform: uppercase;
+    padding: 3px 9px; border-radius: 4px;
+    background: var(--gold-light); color: var(--gold);
+    margin-bottom: 1rem;
+  }
+  .card-title {
+    font-family: var(--serif); font-size: 17px; font-weight: 400;
+    line-height: 1.4; margin-bottom: 0.6rem; color: var(--black);
+  }
+  .card-excerpt { font-size: 13px; color: var(--muted); line-height: 1.7; }
+
+  /* ── VIDEOS ── */
+  .videos-section { background: var(--card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .videos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; }
+  .video-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; overflow: hidden;
+  }
+  .video-thumb {
+    aspect-ratio: 16/9; background: var(--deep);
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .video-play {
+    width: 46px; height: 46px; border-radius: 50%;
+    background: rgba(184,130,10,0.85);
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 16px;
+  }
+  .video-thumb-label {
+    position: absolute; bottom: 10px; left: 12px;
+    font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+  }
+  .video-info { padding: 1.1rem 1.25rem; }
+  .video-title { font-family: var(--serif); font-size: 15px; font-weight: 400; margin-bottom: 0.3rem; color: var(--black); }
+  .video-desc { font-size: 12.5px; color: var(--muted); line-height: 1.6; }
+
+  /* ── BLOG ── */
+  .blog-section { background: var(--surface); }
+  .blog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+  .blog-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 10px; padding: 1.5rem;
+    transition: box-shadow 0.15s;
+    display: flex; flex-direction: column;
+  }
+  .blog-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+  .blog-card-date { font-size: 11px; color: var(--gold); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.75rem; }
+  .blog-card-title { font-family: var(--serif); font-size: 17px; font-weight: 400; line-height: 1.4; margin-bottom: 0.6rem; color: var(--black); }
+  .blog-card-excerpt { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 1rem; flex-grow: 1; }
+  .blog-card-link { font-size: 13px; color: var(--gold); text-decoration: none; font-weight: 500; }
+  .blog-card-link:hover { text-decoration: underline; }
+  .blog-card.placeholder { border-style: dashed; align-items: center; justify-content: center; text-align: center; color: var(--muted); }
+  .blog-card.placeholder .blog-card-title { color: var(--muted); font-size: 14px; }
+
+  /* ── BOOK SECTION ── */
+  .book-section {
+    background: var(--deep);
+    border-top: 1px solid rgba(255,255,255,0.06);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    display: grid; grid-template-columns: auto 1fr; gap: 3rem; align-items: center;
+  }
+  .book-section-cover {
+    width: 160px; height: 230px;
+    border-radius: 2px 8px 8px 2px;
+    background: #0d051c;
+    border: 1px solid rgba(255,255,255,0.08);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 1.25rem 0.75rem; text-align: center;
+    position: relative; overflow: hidden;
+    box-shadow: 4px 4px 20px rgba(0,0,0,0.4);
+    flex-shrink: 0;
+  }
+  .book-section-cover .book-spine-line { position: absolute; left:0; top:0; bottom:0; width:8px; background:#06020e; border-right:1px solid rgba(255,255,255,0.06); }
+  .book-section-cover .book-ornament { width:36px; height:36px; border:1.5px solid rgba(184,130,10,0.65); border-radius:50%; display:flex; align-items:center; justify-content:center; margin-bottom:0.75rem; }
+  .book-section-cover .book-ornament-inner { width:13px; height:13px; background:rgba(184,130,10,0.55); border-radius:50%; }
+  .book-section-cover .book-title-text { font-family:var(--serif); font-size:10px; font-weight:500; color:rgba(255,255,255,0.85); line-height:1.4; margin-bottom:0.35rem; text-transform:uppercase; letter-spacing:0.07em; }
+  .book-section-cover .book-sub-text { font-size:8px; color:rgba(184,130,10,0.7); text-transform:uppercase; letter-spacing:0.09em; }
+  .book-section-cover .book-author-text { position:absolute; bottom:0.75rem; font-size:8px; color:rgba(255,255,255,0.3); letter-spacing:0.07em; text-transform:uppercase; }
+
+  .book-section .section-eyebrow { color: var(--gold); }
+  .book-section .section-title { color: #f0e8d8; }
+  .book-section .section-lead { color: rgba(255,255,255,0.5); }
+  .book-section-actions { display: flex; gap: 12px; margin-top: 1.75rem; flex-wrap: wrap; }
+
+  /* ── SERVICES ── */
+  .services-section { background: var(--card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+  .service-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; padding: 1.5rem;
+  }
+  .service-icon { font-size: 22px; margin-bottom: 0.75rem; color: var(--gold); }
+  .service-name { font-family: var(--serif); font-size: 17px; font-weight: 400; margin-bottom: 0.4rem; }
+  .service-price { font-size: 12px; color: var(--gold); font-weight: 500; letter-spacing: 0.04em; margin-bottom: 0.5rem; }
+  .service-desc { font-size: 13px; color: var(--muted); line-height: 1.7; }
+
+  /* ── CTA ── */
+  .cta-section {
+    background: var(--surface);
+    text-align: center;
+    border-top: 1px solid var(--border);
+  }
+  .cta-section .section-title { font-size: 30px; margin-bottom: 0.75rem; }
+  .cta-section .section-lead { max-width: 520px; margin: 0 auto 2rem; }
+  .cta-actions { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+  .btn-dark {
+    padding: 11px 24px; font-size: 14px; font-weight: 500;
+    background: var(--black); color: #fff;
+    border: none; border-radius: var(--radius); cursor: pointer;
+    text-decoration: none; display: inline-block;
+    transition: opacity 0.15s;
+  }
+  .btn-dark:hover { opacity: 0.82; }
+  .btn-outline-dark {
+    padding: 11px 24px; font-size: 14px; font-weight: 500;
+    background: transparent; color: var(--black);
+    border: 1px solid rgba(0,0,0,0.25);
+    border-radius: var(--radius); cursor: pointer;
+    text-decoration: none; display: inline-block;
+    transition: border-color 0.15s;
+  }
+  .btn-outline-dark:hover { border-color: var(--black); }
+
+  /* ── CONTACT ── */
+  .contact-section {
+    background: var(--card);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start;
+  }
+  .contact-intro { font-size: 14px; line-height: 1.8; color: var(--muted); margin-bottom: 1.5rem; }
+  .contact-link {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 14px; color: var(--black); text-decoration: none;
+    padding: 10px 0; border-bottom: 1px solid var(--border);
+  }
+  .contact-link:last-child { border-bottom: none; }
+  .contact-link:hover { color: var(--gold); }
+  .contact-link-label { font-size: 11px; color: var(--muted); display: block; margin-bottom: 2px; text-transform: uppercase; letter-spacing: 0.08em; }
+  .form-group { margin-bottom: 1rem; }
+  .form-group label { display: block; font-size: 12px; font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.4rem; }
+  .form-group input, .form-group textarea {
+    width: 100%; padding: 10px 14px; font-size: 14px; font-family: var(--sans);
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); color: var(--black); outline: none;
+    transition: border-color 0.15s;
+  }
+  .form-group input:focus, .form-group textarea:focus { border-color: var(--gold); }
+  .form-group textarea { resize: vertical; min-height: 100px; }
+  .form-submit {
+    width: 100%; padding: 12px; font-size: 14px; font-weight: 500;
+    background: var(--gold); color: #fff;
+    border: none; border-radius: var(--radius); cursor: pointer;
+    transition: opacity 0.15s;
+  }
+  .form-submit:hover { opacity: 0.88; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--deep);
+    padding: 2rem 2.5rem;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 1rem;
+  }
+  .footer-logo { font-family: var(--serif); font-size: 15px; color: #e8dcc8; }
+  .footer-copy { font-size: 12px; color: rgba(255,255,255,0.3); margin-top: 0.25rem; }
+  .footer-links { display: flex; gap: 1.5rem; list-style: none; }
+  .footer-links a { font-size: 12px; color: rgba(255,255,255,0.4); text-decoration: none; }
+  .footer-links a:hover { color: rgba(255,255,255,0.8); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 680px) {
+    nav { padding: 0 1.25rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; gap: 2.5rem; padding: 3rem 1.25rem; }
+    .book-wrap { display: flex; justify-content: center; }
+    section { padding: 2.5rem 1.25rem; }
+    .about-section { grid-template-columns: 1fr; gap: 1.5rem; }
+    .book-section { grid-template-columns: 1fr; gap: 2rem; }
+    .contact-section { grid-template-columns: 1fr; gap: 2rem; }
+    footer { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Resurrecting the Dead Ministries</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#teachings">Teachings</a></li>
+    <li><a href="#videos">Videos</a></li>
+    <li><a href="#blog">Blog</a></li>
+    <li><a href="#book">Book</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div style="display:flex; gap:10px; align-items:center;">
+    <a href="https://resurrectngthedeadministries.betterworld.org" target="_blank" class="btn-outline-light" style="padding:7px 16px; font-size:13px;">Donate</a>
+    <a href="https://www.amazon.com" target="_blank" class="nav-cta">Get the Book</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-eyebrow">Resurrecting the Dead Ministries</div>
+    <h1 class="hero-title">Renewing the Mind.<br><em>Resurrecting</em><br>the Spirit.</h1>
+    <p class="hero-sub">Spiritual warfare meets psychological science. Professor Gizmo — Ismael Muwakkil Muhammad — reveals the hidden forces shaping your mind and the divine tools to overcome them.</p>
+    <div class="hero-actions">
+      <a href="https://www.amazon.com" target="_blank" class="btn-gold">Order the Book</a>
+      <a href="#teachings" class="btn-outline-light">Read the Teachings</a>
+    </div>
+  </div>
+  <div class="book-wrap">
+    <div class="book" aria-label="Book cover: Psychological Tricks of the Enemy — Resurrecting the Dead">
+      <div class="book-spine-line"></div>
+      <div class="book-ornament"><div class="book-ornament-inner"></div></div>
+      <div class="book-title-text">Psychological Tricks of the Enemy</div>
+      <div class="book-sub-text">Resurrecting the Dead</div>
+      <div class="book-author-text">Prof. Gizmo · I.M. Muhammad</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about-section" id="about">
+  <div class="about-avatar">IM</div>
+  <div>
+    <div class="section-eyebrow">About the Author</div>
+    <div class="about-title-name">Professor Gizmo — Ismael Muwakkil Muhammad</div>
+    <div class="about-title-role">Author · Minister · Emissary of the Grand Architect of the Universe</div>
+    <p class="about-bio">
+      An Emissary of the Grand Architect of the Universe. Published author and founder of Resurrecting the Dead Ministries (EIN registered). His work sits at the intersection of biblical truth, spiritual warfare, and psychological science — dedicated to raising the mental consciousness of the masses and restoring the family institution, our communities, and the social fabric of this great nation.
+    </p>
+  </div>
+</section>
+
+<!-- TEACHINGS -->
+<section class="teachings-section" id="teachings">
+  <div class="section-header-row">
+    <div>
+      <div class="section-eyebrow">From the Ministry</div>
+      <h2 class="section-title">Teachings &amp; Writings</h2>
+    </div>
+    <a href="https://psychologicaltricksoftheenemy.blogspot.com/" target="_blank" class="view-all">View all teachings →</a>
+  </div>
+  <div class="cards-grid">
+    <div class="teaching-card">
+      <span class="card-tag">Ministry</span>
+      <h3 class="card-title">A Message for the Daughters of Destiny</h3>
+      <p class="card-excerpt">You are more than Beautiful — for you were Divinely Designed and Crafted. This space is Sacred Ground for Healing Hearts, sharing Truths, and Aligning Spirits. This is your Season.</p>
+    </div>
+    <div class="teaching-card">
+      <span class="card-tag">Supreme Mathematics</span>
+      <h3 class="card-title">Knowledge, Wisdom, and Understanding</h3>
+      <p class="card-excerpt">Knowledge is the foundation of all things. Wisdom is the Woman, reflected by the Majestic Moon. Understanding is the child born of harmonious union — the Ultimate Glory.</p>
+    </div>
+    <div class="teaching-card">
+      <span class="card-tag">Spiritual Science</span>
+      <h3 class="card-title">The Thirteen Light Bearers</h3>
+      <p class="card-excerpt">The Brain, Pineal, Heart, and ten more divine systems — Pomegranates working in harmony to maintain a perfect and healthy body. The Tree of the Knowledge of Good and Evil is the human body itself.</p>
+    </div>
+    <div class="teaching-card">
+      <span class="card-tag">Psychology</span>
+      <h3 class="card-title">The Constitution of Friendship</h3>
+      <p class="card-excerpt">A true friend is earned — grounded in Knowledge, Understanding, and the Wisdom of God. Society has created an illusionary state of existence, and this is psychological warfare.</p>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEOS -->
+<section class="videos-section" id="videos">
+  <div class="section-header-row">
+    <div>
+      <div class="section-eyebrow">Watch &amp; Listen</div>
+      <h2 class="section-title">Videos</h2>
+    </div>
+  </div>
+  <div class="videos-grid">
+    <div class="video-card">
+      <div class="video-thumb">
+        <iframe width="100%" height="100%" style="position:absolute; top:0; left:0; border:0;" src="https://www.youtube.com/embed/6r_t2pknqLk" title="Resurrecting the Dead Ministries" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      </div>
+      <div class="video-info">
+        <div class="video-title">Resurrecting the Dead Ministries</div>
+        <div class="video-desc">A message from Professor Gizmo, direct from the ministry.</div>
+      </div>
+    </div>
+    <div class="video-card">
+      <div class="video-thumb">
+        <iframe width="100%" height="100%" style="position:absolute; top:0; left:0; border:0;" src="https://www.youtube.com/embed/47eJ5VSsG2M" title="The Resurrection" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      </div>
+      <div class="video-info">
+        <div class="video-title">The Resurrection</div>
+        <div class="video-desc">A teaching on renewal and resurrection of the mind.</div>
+      </div>
+    </div>
+    <div class="video-card">
+      <div class="video-thumb">
+        <iframe width="100%" height="100%" style="position:absolute; top:0; left:0; border:0;" src="https://www.youtube.com/embed/14r_uiHxp1k" title="The Awakening" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      </div>
+      <div class="video-info">
+        <div class="video-title">The Awakening</div>
+        <div class="video-desc">A call to conscious awakening and spiritual discernment.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BLOG -->
+<section class="blog-section" id="blog">
+  <div class="section-header-row">
+    <div>
+      <div class="section-eyebrow">The Ministry Blog</div>
+      <h2 class="section-title">Latest Posts</h2>
+    </div>
+    <a href="https://psychologicaltricksoftheenemy.blogspot.com/" target="_blank" class="view-all">Visit the full blog →</a>
+  </div>
+  <div class="blog-grid">
+    <div class="blog-card placeholder">
+      <div class="blog-card-title">New posts will appear here</div>
+    </div>
+    <div class="blog-card placeholder">
+      <div class="blog-card-title">New posts will appear here</div>
+    </div>
+    <div class="blog-card placeholder">
+      <div class="blog-card-title">New posts will appear here</div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOK -->
+<section class="book-section" id="book">
+  <div class="book-section-cover" aria-label="Book cover">
+    <div class="book-spine-line"></div>
+    <div class="book-ornament"><div class="book-ornament-inner"></div></div>
+    <div class="book-title-text">Psychological Tricks of the Enemy</div>
+    <div class="book-sub-text">Resurrecting the Dead</div>
+    <div class="book-author-text">I.M. Muhammad</div>
+  </div>
+  <div>
+    <div class="section-eyebrow">The Book</div>
+    <h2 class="section-title" style="color:#f0e8d8;">Psychological Tricks of the Enemy:<br><em>Resurrecting the Dead</em></h2>
+    <p class="section-lead">
+      Delving unto the darker side of human psychology — revealing the powerful tactics used to control your mind and manipulate your emotions. Discover how these tactics can be resurrected and repurposed for personal empowerment and mental survival. A must-read for those stirring from their slumber.
+    </p>
+    <div class="book-section-actions">
+      <a href="https://www.amazon.com" target="_blank" class="btn-gold">Order on Amazon</a>
+      <a href="https://psychologicaltricksoftheenemy.blogspot.com/" target="_blank" class="btn-outline-light">Read the Blog</a>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services-section" id="services">
+  <div class="section-header-row">
+    <div>
+      <div class="section-eyebrow">Available on Fiverr</div>
+      <h2 class="section-title">Content Writing Services</h2>
+    </div>
+    <a href="https://www.fiverr.com/ismaelmuhammad9" target="_blank" class="view-all">Hire on Fiverr →</a>
+  </div>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">✦</div>
+      <div class="service-name">Ministry Content</div>
+      <div class="service-price">Basic Package</div>
+      <p class="service-desc">Sermons, devotionals, and biblical teaching content rooted in spiritual psychology. Crafted for ministries and faith communities.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">✦</div>
+      <div class="service-name">Coaching Copy</div>
+      <div class="service-price">Standard Package</div>
+      <p class="service-desc">Spiritual life coaching content that speaks to the soul. Designed for life coaches, counselors, and wellness brands.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">✦</div>
+      <div class="service-name">Full Brand Package</div>
+      <div class="service-price">Premium Package</div>
+      <p class="service-desc">Blog posts, outreach letters, social media content, and more — a complete content solution for pastors, ministers, and spiritual communities.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="section-eyebrow" style="text-align:center;">Begin Your Resurrection</div>
+  <h2 class="section-title" style="text-align:center; font-size:30px;">The Road to Recovery<br><em>starts in the Mind.</em></h2>
+  <p class="section-lead" style="text-align:center; max-width:500px; margin:0 auto 2rem;">
+    Order <em>Psychological Tricks of the Enemy: Resurrecting the Dead</em> and discover the hidden forces at work against your mind — and the divine power to overcome them.
+  </p>
+  <div class="cta-actions">
+    <a href="https://www.amazon.com" target="_blank" class="btn-dark">Order on Amazon</a>
+    <a href="https://www.fiverr.com/ismaelmuhammad9" target="_blank" class="btn-outline-dark">Hire on Fiverr</a>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div>
+    <div class="section-eyebrow">Get in Touch</div>
+    <h2 class="section-title">Connect with the Ministry</h2>
+    <p class="contact-intro">Resurrecting the Dead Ministries is here to serve — whether you seek spiritual guidance, content writing services, or simply wish to connect with the work.</p>
+    <a href="https://www.fiverr.com/ismaelmuhammad9" target="_blank" class="contact-link">
+      <span>
+        <span class="contact-link-label">Fiverr</span>
+        @ismaelmuhammad9
+      </span>
+    </a>
+    <a href="https://psychologicaltricksoftheenemy.blogspot.com/" target="_blank" class="contact-link">
+      <span>
+        <span class="contact-link-label">Blog</span>
+        psychologicaltricksoftheenemy.blogspot.com
+      </span>
+    </a>
+    <a href="https://resurrecting-the-dead.onepage.me/" target="_blank" class="contact-link">
+      <span>
+        <span class="contact-link-label">Author Website</span>
+        resurrecting-the-dead.onepage.me
+      </span>
+    </a>
+  </div>
+  <div>
+    <div class="section-eyebrow" style="margin-bottom:1.25rem;">Send a Message</div>
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" id="name" placeholder="Your full name" />
+    </div>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="your@email.com" />
+    </div>
+    <div class="form-group">
+      <label for="message">Message</label>
+      <textarea id="message" placeholder="Greetings of Salutation — I would like to reach out about..."></textarea>
+    </div>
+    <button class="form-submit">Send Message</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-logo">Resurrecting the Dead Ministries</div>
+    <div class="footer-copy">© 2025 Ismael Muwakkil Muhammad. All rights reserved. No part of this site may be reproduced without prior written consent.</div>
+  </div>
+  <ul class="footer-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#teachings">Teachings</a></li>
+    <li><a href="#book">Book</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</footer>
+
+</body>
+</html>
